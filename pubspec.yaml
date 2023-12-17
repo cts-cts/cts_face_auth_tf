@@ -38,6 +38,7 @@ dependencies:
   image: ^4.1.3
   image_picker: ^1.0.4
   get:
+  google_mlkit_face_detection: ^0.8.0
 
 dev_dependencies:
   flutter_test:
@@ -60,7 +61,7 @@ flutter:
   # the material Icons class.
   uses-material-design: true
   assets:
-    - assets/mobilefacenet.tflite
+    - assets/
 
   # To add assets to your application, add an assets section, like this:
   # assets:
