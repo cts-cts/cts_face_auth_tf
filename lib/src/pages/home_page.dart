@@ -10,8 +10,8 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          mlController.authenticate();
+        onPressed: () async {
+          await mlController.runInference();
         },
         child: Icon(
           Icons.face_4_rounded,
@@ -20,57 +20,33 @@ class HomePage extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         child: Center(
-          child: Obx(
-            () => Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                SizedBox(
-                  height: 12,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    IconButton(
-                      onPressed: () {
-                        mlController.pickImage(true);
-                      },
-                      icon: Icon(Icons.add),
-                    ),
-                    IconButton(
-                      onPressed: () {
-                        mlController.pickImage(false);
-                      },
-                      icon: Icon(Icons.add),
-                    ),
-                  ],
-                ),
-                if (mlController.img1.value != null)
-                  Container(
-                    width: 150,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(
-                        22,
-                      ),
-                      child: Image.memory(mlController.img1.value!),
-                    ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              SizedBox(
+                height: 12,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  IconButton(
+                    onPressed: () {
+                      mlController.pickImage();
+                    },
+                    icon: Icon(Icons.add),
                   ),
-                SizedBox(
-                  height: 12,
-                ),
-                if (mlController.img2.value != null)
-                  Container(
-                    width: 150,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(
-                        22,
+                ],
+              ),
+              Obx(
+                () => mlController.img.value != null
+                    ? Image.memory(mlController.img.value!)
+                    : Icon(
+                        Icons.person,
                       ),
-                      child: Image.memory(mlController.img2.value!),
-                    ),
-                  ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),
